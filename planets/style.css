@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#canvas-physics {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+#planet-names {
+  display: flex;
+  gap: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 110px;
+  font-size: 120px;
+  white-space: nowrap;
+  border-top: 5px solid black;
+  z-index: 2;
+}
+#planet {
+  font-size: large;
+}
