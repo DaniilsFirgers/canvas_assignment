@@ -2,20 +2,20 @@ const canvas = document.getElementById("canvas-physics");
 const context = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
-let particlesArray = [];
+let planetsArray = [];
 const numberOfParticls = 6;
 
-let titelElement = document.getElementById("planet-names");
-let titelMeasurements = titelElement.getBoundingClientRect();
-let title = {
-  x: titelMeasurements.left,
-  y: titelMeasurements.top,
-  width: titelMeasurements.width,
+let surface = document.getElementById("planet-names");
+let surfaceMeasurements = surface.getBoundingClientRect();
+let surfaceObject = {
+  x: surfaceMeasurements.left,
+  y: surfaceMeasurements.top,
+  width: surfaceMeasurements.width,
   height: 10,
 };
 
-let bouncingObejct = {
-  start: titelMeasurements.left + 30,
+let bouncingObject = {
+  start: surfaceMeasurements.left + 30,
   distance: 98,
 };
 
@@ -32,10 +32,10 @@ class Particle {
     this.color = color;
   }
   update() {
-    console.log(this.y, title.y);
+    console.log(this.y, surfaceObject.y);
     if (this.bounceTimes >= 5) {
       // stop bouncing and set position to title
-      this.y = title.y - 15;
+      this.y = surfaceObject.y - 13;
       this.weight = 0;
       this.stopUpdating = true;
     } else {
@@ -44,10 +44,10 @@ class Particle {
       this.y += this.weight;
 
       if (
-        this.x < title.x + title.width &&
-        this.x + this.size > title.x &&
-        this.y < title.y + title.height &&
-        this.y + this.size > title.y &&
+        this.x < surfaceObject.x + surfaceObject.width &&
+        this.x + this.size > surfaceObject.x &&
+        this.y < surfaceObject.y + surfaceObject.height &&
+        this.y + this.size > surfaceObject.y &&
         this.bounceTimes < 5
       ) {
         this.y -= 1;
@@ -68,9 +68,9 @@ class Particle {
 }
 
 function init() {
-  particlesArray = [];
+  planetsArray = [];
   for (let i = 0; i < numberOfParticls; i++) {
-    const x = bouncingObejct.start + bouncingObejct.distance * i;
+    const x = bouncingObject.start + bouncingObject.distance * i;
 
     let weight = 0;
     let bouncingWeight = 0;
@@ -116,7 +116,7 @@ function init() {
 
     const y = canvas.height / 6;
 
-    particlesArray.push(new Particle(x, y, weight, bouncingWeight, color));
+    planetsArray.push(new Particle(x, y, weight, bouncingWeight, color));
   }
 }
 init();
@@ -124,11 +124,11 @@ function animate() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   context.fillStyle = "rgba(255, 255, 255, 1)";
   context.fillRect(0, 0, canvas.height, canvas.width);
-  for (let i = 0; i < particlesArray.length; i++) {
-    if (!particlesArray[i].stopUpdating) {
-      particlesArray[i].update();
+  for (let i = 0; i < planetsArray.length; i++) {
+    if (!planetsArray[i].stopUpdating) {
+      planetsArray[i].update();
     }
-    particlesArray[i].draw();
+    planetsArray[i].draw();
   }
 
   requestAnimationFrame(animate);
@@ -138,17 +138,17 @@ animate();
 window.addEventListener("resize", function () {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  titelMeasurements = titelElement.getBoundingClientRect();
-  title = {
-    x: titelMeasurements.left,
-    y: titelMeasurements.top,
-    width: titelMeasurements.width,
+  surfaceMeasurements = surface.getBoundingClientRect();
+  surfaceObject = {
+    x: surfaceMeasurements.left,
+    y: surfaceMeasurements.top,
+    width: surfaceMeasurements.width,
     height: 10,
   };
-  bouncingObejct = {
-    x: titelMeasurements.left,
+  bouncingObject = {
+    x: surfaceMeasurements.left,
     distance: 70,
   };
-  console.log(title.width);
+  console.log(surfaceObject.width);
   init();
 });

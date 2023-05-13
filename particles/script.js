@@ -19,7 +19,7 @@ canvas.addEventListener("click", function (event) {
   mouse.x = event.x;
   mouse.y = event.y;
   for (let i = 0; i < 10; i++) {
-    particlesArray.push(new Particle());
+    planetsArray.push(new Particle());
   }
 });
 
@@ -27,7 +27,7 @@ canvas.addEventListener("mousemove", function (event) {
   mouse.x = event.x;
   mouse.y = event.y;
   for (let i = 0; i < 2; i++) {
-    particlesArray.push(new Particle());
+    planetsArray.push(new Particle());
   }
 });
 
@@ -64,30 +64,30 @@ class Particle {
 // init();
 
 function handleParticles() {
-  for (let i = 0; i < particlesArray.length; i++) {
-    particlesArray[i].update();
-    particlesArray[i].draw();
+  for (let i = 0; i < planetsArray.length; i++) {
+    planetsArray[i].update();
+    planetsArray[i].draw();
 
-    for (let j = i; j < particlesArray.length; j++) {
-      const dx = particlesArray[i].x - particlesArray[j].x;
-      const dy = particlesArray[i].y - particlesArray[j].y;
+    for (let j = i; j < planetsArray.length; j++) {
+      const dx = planetsArray[i].x - planetsArray[j].x;
+      const dy = planetsArray[i].y - planetsArray[j].y;
       const distance = Math.sqrt(dx * dx + dy * dy);
       if (distance < 100) {
         context.beginPath();
-        context.strokeStyle = particlesArray[i].color;
-        context.lineWidth = particlesArray[i].size;
-        context.moveTo(particlesArray[i].x, particlesArray[i].y);
-        context.lineTo(particlesArray[j].x, particlesArray[j].y);
+        context.strokeStyle = planetsArray[i].color;
+        context.lineWidth = planetsArray[i].size;
+        context.moveTo(planetsArray[i].x, planetsArray[i].y);
+        context.lineTo(planetsArray[j].x, planetsArray[j].y);
         context.stroke();
       }
     }
-    if (particlesArray[i] <= 0.3) {
-      particlesArray.splice(i, 1);
+    if (planetsArray[i] <= 0.3) {
+      planetsArray.splice(i, 1);
       i--;
     }
   }
 }
-console.log(particlesArray);
+console.log(planetsArray);
 function animate() {
   context.clearRect(0, 0, canvas.width, canvas.height);
   //   context.fillStyle = "rgba(0,0,0,0.02)";
